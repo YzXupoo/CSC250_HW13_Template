@@ -1,11 +1,21 @@
 package com.example.awesomefat.csc250_hw13_template;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.Random;
+
+/*On MainActivity:
+Create an interface that reads in the number of elements that you want in your array,
+then upon a button click create an array of the appropriate size and fill it with Random Numbers.
+Then pass that array to another screen.
+On Screen2:
+You should sort the array, and display it in order inside a ScrollView
+*/
 public class MainActivity extends AppCompatActivity
 {
     private Button page2Button;
@@ -21,11 +31,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_main);
 
-        this.ar = new int[1000];
-        for(int i = 0; i < this.ar.length; i++)
-        {
-            this.ar[i] = i+1;
-        }
+        //this.ar = new int[1000];
+        EditText elArray = (EditText)this.findViewById(R.id.elArray);
+        elArray.setText("1");
+        this.ar = new int[Integer.parseInt(elArray.getText().toString())];
+
 
         this.printArray();
 
@@ -58,6 +68,16 @@ public class MainActivity extends AppCompatActivity
     {
         if(v == this.page2Button)
         {
+            EditText elArray = (EditText)this.findViewById(R.id.elArray);
+            this.ar = new int[Integer.parseInt(elArray.getText().toString())];
+            Random rand = new Random();
+            for(int a = 0; a < this.ar.length; a++)
+            {
+
+                this.ar[a] = rand.nextInt(this.ar.length) + 1 ;
+                System.out.println("" + ar[a]);
+            }
+
             System.out.println(this.ar);
             Intent i = new Intent(this, Screen2.class);
             i.putExtra("myAR", this.ar);
@@ -78,5 +98,7 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(i);
         }
     }
+
+
 
 }
